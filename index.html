@@ -3,356 +3,426 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zen Downloader - Professional Video Downloader</title>
+<title>Zen Downloader Pro — Save any video, or a whole account</title>
+<meta name="description" content="A free Windows app that downloads videos from TikTok, YouTube, Instagram, Facebook, X and Snapchat. Single links or entire accounts.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='23' fill='%230B0E14'/%3E%3Ccircle cx='50' cy='50' r='31' fill='none' stroke='%23FF5722' stroke-width='6'/%3E%3Cpath d='M50 30v28M38 50l12 13 12-13' stroke='%23fff' stroke-width='8' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Crect x='34' y='72' width='32' height='6' rx='3' fill='%23FF7A45'/%3E%3C/svg%3E">
+
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+:root{
+  --ink:#0B0E14;
+  --panel:#141924;
+  --panel-2:#1C2230;
+  --line:#242C3D;
+  --ember:#FF5722;
+  --ember-soft:#FF7A45;
+  --paper:#F2F5FA;
+  --mute:#8B95A8;
+  --ok:#22C55E;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--ink);
+  color:var(--paper);
+  font-family:'Inter',-apple-system,'Segoe UI',sans-serif;
+  font-size:16px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
 
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: #0D1117;
-    color: #E6EDF3;
-    min-height: 100vh;
-  }
+/* ── Nav ─────────────────────────────────── */
+nav{
+  position:sticky;top:0;z-index:50;
+  background:rgba(11,14,20,.82);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.nav-in{display:flex;align-items:center;justify-content:space-between;
+  height:66px;max-width:1080px;margin:0 auto;padding:0 24px}
+.brand{display:flex;align-items:center;gap:11px;font-family:'Archivo',sans-serif;
+  font-weight:800;font-size:17px;letter-spacing:-.02em}
+.brand svg{width:30px;height:30px;flex-shrink:0}
+.brand em{color:var(--ember);font-style:normal}
+.nav-cta{
+  background:var(--ember);color:#fff;text-decoration:none;
+  padding:9px 18px;border-radius:9px;font-size:14px;font-weight:600;
+  transition:background .18s ease, transform .18s ease;
+}
+.nav-cta:hover{background:var(--ember-soft);transform:translateY(-1px)}
+.nav-cta:focus-visible,a:focus-visible,button:focus-visible{
+  outline:2px solid var(--ember-soft);outline-offset:3px}
 
-  /* NAV */
-  nav {
-    background: #161B22;
-    border-bottom: 1px solid #30363D;
-    padding: 16px 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .nav-logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 20px;
-    font-weight: 800;
-    color: #fff;
-  }
-  .nav-logo span { color: #2EA043; font-size: 26px; }
-  .nav-badge {
-    background: #2EA043;
-    color: #ffffff;
-    font-size: 11px;
-    padding: 2px 8px;
-    border-radius: 20px;
-    font-weight: 700;
-    -webkit-text-fill-color: #ffffff;
-  }
+/* ── Hero ────────────────────────────────── */
+header{padding:96px 0 20px;position:relative}
+header::before{
+  content:'';position:absolute;top:-180px;left:50%;transform:translateX(-50%);
+  width:820px;height:420px;pointer-events:none;
+  background:radial-gradient(ellipse at center,rgba(255,87,34,.16),transparent 68%);
+  filter:blur(28px);
+}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:9px;
+  border:1px solid var(--line);border-radius:100px;
+  padding:6px 15px;font-size:13px;color:var(--mute);margin-bottom:26px;
+}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--ok);
+  box-shadow:0 0 0 3px rgba(34,197,94,.16)}
+h1{
+  font-family:'Archivo',sans-serif;font-weight:800;
+  font-size:clamp(2.6rem,6.2vw,4.6rem);line-height:1.02;
+  letter-spacing:-.035em;margin-bottom:20px;
+}
+h1 span{color:var(--ember)}
+.sub{font-size:clamp(1rem,2.1vw,1.2rem);color:var(--mute);max-width:560px;margin-bottom:36px}
 
-  /* HERO */
-  .hero {
-    text-align: center;
-    padding: 90px 20px 70px;
-    background: linear-gradient(180deg, #161B22 0%, #0D1117 100%);
-    border-bottom: 1px solid #30363D;
-  }
-  .hero-icon {
-    font-size: 64px;
-    margin-bottom: 20px;
-    display: block;
-  }
-  .hero h1 {
-    font-size: 52px;
-    font-weight: 900;
-    color: #fff;
-    margin-bottom: 16px;
-    letter-spacing: -1px;
-  }
-  .hero h1 span { color: #2EA043; }
-  .hero p {
-    font-size: 20px;
-    color: #7D8590;
-    max-width: 560px;
-    margin: 0 auto 36px;
-    line-height: 1.6;
-  }
+/* ── Signature: live paste box ───────────── */
+.demo{
+  background:var(--panel);border:1px solid var(--line);
+  border-radius:16px;padding:22px;max-width:660px;
+  box-shadow:0 24px 60px -28px rgba(0,0,0,.9);
+}
+.demo-label{font-size:12px;color:var(--mute);letter-spacing:.06em;
+  text-transform:uppercase;font-weight:600;margin-bottom:11px}
+.demo-field{
+  background:var(--panel-2);border:1px solid var(--line);border-radius:10px;
+  padding:15px 17px;font-family:'Inter',monospace;font-size:14.5px;
+  min-height:52px;display:flex;align-items:center;word-break:break-all;
+}
+.caret{display:inline-block;width:2px;height:17px;background:var(--ember);
+  margin-left:2px;vertical-align:middle;animation:blink 1s step-end infinite}
+@keyframes blink{50%{opacity:0}}
+.demo-out{
+  margin-top:13px;font-size:14px;display:flex;align-items:center;gap:9px;
+  color:var(--ok);opacity:0;transform:translateY(5px);
+  transition:opacity .32s ease,transform .32s ease;
+}
+.demo-out.show{opacity:1;transform:none}
+.demo-out b{color:var(--paper);font-weight:600}
+.tick{width:17px;height:17px;flex-shrink:0}
 
-  .btn-download {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: #2EA043;
-    color: #fff;
-    text-decoration: none;
-    font-size: 18px;
-    font-weight: 700;
-    padding: 16px 40px;
-    border-radius: 8px;
-    transition: background 0.2s;
-    margin-bottom: 14px;
-  }
-  .btn-download:hover { background: #238636; }
+/* ── CTA ─────────────────────────────────── */
+.cta-row{display:flex;flex-wrap:wrap;align-items:center;gap:18px;margin:38px 0 14px}
+.btn{
+  display:inline-flex;align-items:center;gap:11px;
+  background:var(--ember);color:#fff;text-decoration:none;
+  padding:16px 30px;border-radius:12px;
+  font-weight:700;font-size:16.5px;
+  box-shadow:0 12px 30px -12px rgba(255,87,34,.6);
+  transition:background .18s ease,transform .18s ease,box-shadow .18s ease;
+}
+.btn:hover{background:var(--ember-soft);transform:translateY(-2px);
+  box-shadow:0 18px 38px -14px rgba(255,87,34,.7)}
+.btn svg{width:19px;height:19px}
+.meta{font-size:14px;color:var(--mute)}
+.meta strong{color:var(--paper);font-weight:600}
 
-  .version-info {
-    color: #7D8590;
-    font-size: 13px;
-    margin-top: 12px;
-  }
+/* ── Platform strip ──────────────────────── */
+.strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  margin-top:74px;padding:26px 0;background:rgba(20,25,36,.4)}
+.strip-in{display:flex;flex-wrap:wrap;justify-content:center;
+  gap:14px 40px;align-items:center}
+.plat{font-family:'Archivo',sans-serif;font-weight:700;font-size:15px;
+  color:var(--mute);letter-spacing:-.01em}
 
-  /* PLATFORMS */
-  .platforms {
-    display: flex;
-    justify-content: center;
-    gap: 24px;
-    flex-wrap: wrap;
-    padding: 40px 20px;
-    background: #161B22;
-    border-bottom: 1px solid #30363D;
-  }
-  .platform {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 15px;
-    font-weight: 600;
-    padding: 10px 20px;
-    background: #21262D;
-    border-radius: 8px;
-    border: 1px solid #30363D;
-  }
+/* ── Sections ────────────────────────────── */
+section{padding:88px 0}
+.sec-head{max-width:600px;margin-bottom:44px}
+h2{font-family:'Archivo',sans-serif;font-weight:700;
+  font-size:clamp(1.7rem,3.6vw,2.5rem);letter-spacing:-.03em;
+  line-height:1.12;margin-bottom:13px}
+.sec-head p{color:var(--mute)}
 
-  /* FEATURES */
-  .features {
-    padding: 70px 20px;
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-  .features h2 {
-    text-align: center;
-    font-size: 34px;
-    font-weight: 800;
-    margin-bottom: 50px;
-    color: #fff;
-  }
-  .features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-  }
-  .feature-card {
-    background: #161B22;
-    border: 1px solid #30363D;
-    border-radius: 12px;
-    padding: 28px;
-    transition: border-color 0.2s;
-  }
-  .feature-card:hover { border-color: #2EA043; }
-  .feature-icon { font-size: 32px; margin-bottom: 14px; display: block; }
-  .feature-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; color: #fff; }
-  .feature-card p { font-size: 14px; color: #7D8590; line-height: 1.6; }
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:18px}
+.card{
+  background:var(--panel);border:1px solid var(--line);
+  border-radius:14px;padding:26px;
+  transition:border-color .2s ease,transform .2s ease;
+}
+.card:hover{border-color:#33405a;transform:translateY(-3px)}
+.card h3{font-family:'Archivo',sans-serif;font-weight:700;font-size:17px;
+  margin-bottom:9px;letter-spacing:-.01em}
+.card p{color:var(--mute);font-size:14.6px}
+.ic{width:38px;height:38px;border-radius:10px;background:rgba(255,87,34,.12);
+  display:grid;place-items:center;margin-bottom:16px}
+.ic svg{width:19px;height:19px;stroke:var(--ember)}
 
-  /* HOW TO USE */
-  .howto {
-    background: #161B22;
-    border-top: 1px solid #30363D;
-    border-bottom: 1px solid #30363D;
-    padding: 70px 20px;
-  }
-  .howto h2 {
-    text-align: center;
-    font-size: 34px;
-    font-weight: 800;
-    margin-bottom: 50px;
-    color: #fff;
-  }
-  .steps {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
-    max-width: 900px;
-    margin: 0 auto;
-  }
-  .step {
-    text-align: center;
-    flex: 1;
-    min-width: 180px;
-  }
-  .step-num {
-    width: 52px;
-    height: 52px;
-    background: #2EA043;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    font-weight: 800;
-    margin: 0 auto 16px;
-    color: #fff;
-  }
-  .step h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; color: #fff; }
-  .step p { font-size: 13px; color: #7D8590; line-height: 1.5; }
+/* ── Steps (a real sequence) ─────────────── */
+.steps{display:grid;gap:2px;background:var(--line);
+  border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.step{background:var(--panel);padding:28px;display:flex;gap:22px;align-items:flex-start}
+.num{font-family:'Archivo',sans-serif;font-weight:800;font-size:26px;
+  color:var(--ember);line-height:1;min-width:38px}
+.step h3{font-family:'Archivo',sans-serif;font-size:17px;font-weight:700;margin-bottom:6px}
+.step p{color:var(--mute);font-size:14.6px}
 
-  /* DOWNLOAD CTA */
-  .cta {
-    text-align: center;
-    padding: 80px 20px;
-  }
-  .cta h2 { font-size: 36px; font-weight: 800; margin-bottom: 14px; color: #fff; }
-  .cta p { font-size: 16px; color: #7D8590; margin-bottom: 36px; }
+/* ── Support ─────────────────────────────── */
+.support{
+  background:linear-gradient(140deg,var(--panel),rgba(255,87,34,.07));
+  border:1px solid var(--line);border-radius:18px;
+  padding:44px;text-align:center;
+}
+.support h2{margin-bottom:11px}
+.support p{color:var(--mute);margin-bottom:26px}
+.wa{display:inline-flex;align-items:center;gap:10px;
+  background:var(--panel-2);border:1px solid var(--line);
+  color:var(--paper);text-decoration:none;
+  padding:13px 24px;border-radius:11px;font-weight:600;font-size:15px;
+  transition:border-color .2s ease}
+.wa:hover{border-color:var(--ember)}
 
-  /* FOOTER */
-  footer {
-    background: #161B22;
-    border-top: 1px solid #30363D;
-    padding: 30px 20px;
-    text-align: center;
-  }
-  footer p { color: #7D8590; font-size: 14px; line-height: 2; }
-  footer strong { color: #2EA043; }
-  .whatsapp-link {
-    color: #2EA043;
-    text-decoration: none;
-    font-weight: 600;
-  }
-  .whatsapp-link:hover { text-decoration: underline; }
+/* ── Footer ──────────────────────────────── */
+footer{border-top:1px solid var(--line);padding:36px 0;
+  color:var(--mute);font-size:14px}
+.foot-in{display:flex;flex-wrap:wrap;gap:14px;
+  justify-content:space-between;align-items:center}
+footer b{color:var(--paper);font-weight:600}
+
+@media (max-width:640px){
+  header{padding:64px 0 12px}
+  section{padding:64px 0}
+  .demo{padding:17px}
+  .support{padding:30px 22px}
+  .step{padding:22px;gap:16px}
+  .nav-cta{padding:8px 14px;font-size:13px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto}
+  .demo-out{opacity:1;transform:none}
+}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
-  <div class="nav-logo">
-    <span>⬇</span>
-    Zen Downloader
-    <span class="nav-badge">v2.0</span>
+  <div class="nav-in">
+    <div class="brand">
+      <svg viewBox="0 0 100 100" aria-hidden="true">
+        <rect width="100" height="100" rx="23" fill="#0B0E14" stroke="#242C3D"/>
+        <circle cx="50" cy="50" r="31" fill="none" stroke="#FF5722" stroke-width="6"/>
+        <path d="M50 30v28M38 50l12 13 12-13" stroke="#fff" stroke-width="8"
+              stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <rect x="34" y="72" width="32" height="6" rx="3" fill="#FF7A45"/>
+      </svg>
+      Zen Downloader <em>Pro</em>
+    </div>
+    <a class="nav-cta" href="https://github.com/bilalmelwana/zen-downloader/releases/latest/download/ZenDownloader_Setup.exe">Download</a>
   </div>
-  <div style="color:#7D8590; font-size:13px;">Made by <strong style="color:#2EA043;">Bilal Melwana</strong></div>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <span class="hero-icon">⬇</span>
-  <h1>Zen <span>Downloader</span></h1>
-  <p>Download videos from any platform — fast, free, and without watermarks.</p>
+<header>
+  <div class="wrap">
+    <div class="eyebrow"><span class="dot"></span> Free for Windows · Version 3.0</div>
 
-  <a href="https://github.com/bilalmelwana/zen-downloader/releases/latest/download/ZenDownloader_Setup.exe"
-     class="btn-download">
-    ⬇ &nbsp; Download for Windows — Free
-  </a>
+    <h1>Save any video.<br>Or a <span>whole account.</span></h1>
+    <p class="sub">Paste a link and it downloads. Paste a channel, profile or Shorts
+       page and it downloads everything on it — sorted into folders, with the sound intact.</p>
 
-  <div class="version-info">Version 2.0 &nbsp;•&nbsp; Windows 10 / 11 &nbsp;•&nbsp; 100% Free</div>
-</section>
-
-<!-- PLATFORMS -->
-<div class="platforms">
-  <div class="platform">YouTube</div>
-  <div class="platform">TikTok</div>
-  <div class="platform">Instagram</div>
-  <div class="platform">Facebook</div>
-  <div class="platform">X / Twitter</div>
-  <div class="platform">Snapchat</div>
-</div>
-
-<!-- FEATURES -->
-<section class="features">
-  <h2>Everything You Need</h2>
-  <div class="features-grid">
-
-    <div class="feature-card">
-      <span class="feature-icon">⚡</span>
-      <h3>Lightning Fast</h3>
-      <p>Download videos at maximum speed with multi-threaded downloading technology.</p>
+    <div class="demo">
+      <div class="demo-label">Video link</div>
+      <div class="demo-field"><span id="typed"></span><span class="caret"></span></div>
+      <div class="demo-out" id="out">
+        <svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+        <span id="outText"></span>
+      </div>
     </div>
 
-    <div class="feature-card">
-      <span class="feature-icon">🎬</span>
-      <h3>4K Quality</h3>
-      <p>Download in Best, 4K, 1080p, 720p, 480p quality or Audio Only MP3.</p>
+    <div class="cta-row">
+      <a class="btn" href="https://github.com/bilalmelwana/zen-downloader/releases/latest/download/ZenDownloader_Setup.exe">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+             stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Download for Windows
+      </a>
+      <span class="meta"><strong>Free.</strong> No account, no ads, no watermarks.</span>
     </div>
-
-    <div class="feature-card">
-      <span class="feature-icon">🚫</span>
-      <h3>No Watermark</h3>
-      <p>TikTok videos download without watermark — clean and ready to share.</p>
-    </div>
-
-    <div class="feature-card">
-      <span class="feature-icon">📁</span>
-      <h3>Auto Folders</h3>
-      <p>Videos automatically saved in platform folders with original titles.</p>
-    </div>
-
-    <div class="feature-card">
-      <span class="feature-icon">📋</span>
-      <h3>Bulk Download</h3>
-      <p>Paste multiple links at once — download all videos in one click.</p>
-    </div>
-
-    <div class="feature-card">
-      <span class="feature-icon">👤</span>
-      <h3>Full Account Download</h3>
-      <p>Paste a channel or account link — download ALL videos automatically.</p>
-    </div>
-
-    <div class="feature-card">
-      <span class="feature-icon">🔄</span>
-      <h3>Always Up to Date</h3>
-      <p>Built-in one-click engine updater — app always works on all platforms.</p>
-    </div>
-
-    <div class="feature-card">
-      <span class="feature-icon">🆓</span>
-      <h3>100% Free</h3>
-      <p>No subscription, no limits, no watermarks on your downloads. Forever free.</p>
-    </div>
-
   </div>
-</section>
 
-<!-- HOW TO USE -->
-<section class="howto">
-  <h2>How to Use</h2>
-  <div class="steps">
-    <div class="step">
-      <div class="step-num">1</div>
-      <h3>Download & Install</h3>
-      <p>Click the download button and run the installer.</p>
+  <div class="strip">
+    <div class="strip-in">
+      <span class="plat">TikTok</span>
+      <span class="plat">YouTube</span>
+      <span class="plat">Instagram</span>
+      <span class="plat">Facebook</span>
+      <span class="plat">X</span>
+      <span class="plat">Snapchat</span>
     </div>
-    <div class="step">
-      <div class="step-num">2</div>
-      <h3>Paste URL</h3>
-      <p>Copy any video link and paste it into the app.</p>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Built for the things that usually go wrong</h2>
+      <p>Most downloaders handle the easy link and give up after that. These are the parts that took the longest to get right.</p>
     </div>
-    <div class="step">
-      <div class="step-num">3</div>
-      <h3>Choose Quality</h3>
-      <p>Select your preferred video quality — up to 4K.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">4</div>
-      <h3>Download!</h3>
-      <p>Click Start Download and your video is saved!</p>
+
+    <div class="grid">
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a9 9 0 0 1 0 14"/></svg></div>
+        <h3>Long TikToks keep their sound</h3>
+        <p>TikTok sometimes hands over a video with a silent audio track. Every download is checked, and if the sound is missing it is fetched and put back automatically.</p>
+      </div>
+
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><rect x="7" y="7" width="10" height="10" rx="2"/></svg></div>
+        <h3>Whole accounts, one link</h3>
+        <p>Give it a channel, a profile, a playlist or a Shorts page. Everything downloads into a folder named after the account and the section.</p>
+      </div>
+
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></div>
+        <h3>It updates itself</h3>
+        <p>Platforms change how they work every few weeks. One button pulls the newest engine, so the app keeps working long after you install it.</p>
+      </div>
+
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+        <h3>Downloads in parallel</h3>
+        <p>Files come down in several pieces at once instead of one slow stream, so a long video finishes in a fraction of the time.</p>
+      </div>
+
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+        <h3>Instagram, without the workarounds</h3>
+        <p>Press one button, log in the way you normally would, and close the window. Instagram downloads work from then on.</p>
+      </div>
+
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+        <h3>Real file names</h3>
+        <p>Files are saved with the video's own title. No random codes, no numbers bolted on the end.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- CTA -->
-<section class="cta">
-  <h2>Download Now — It's Free!</h2>
-  <p>Join thousands of users downloading videos with Zen Downloader.</p>
-  <a href="https://github.com/bilalmelwana/zen-downloader/releases/latest/download/ZenDownloader_Setup.exe"
-     class="btn-download">
-    ⬇ &nbsp; Download Zen Downloader
-  </a>
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Three steps, every time</h2>
+      <p>There is no setup, no sign-up and nothing to configure before the first download.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="num">1</div>
+        <div>
+          <h3>Paste the link</h3>
+          <p>One video, or a channel, playlist or profile. Paste several links on separate lines to queue them together.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <div>
+          <h3>Pick the quality</h3>
+          <p>Best quality is chosen for you. Change it to 1080p, 720p or audio-only MP3 if you prefer.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <div>
+          <h3>Press Download</h3>
+          <p>Watch the percentage climb. Files land in your chosen folder, sorted by platform.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- FOOTER -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="support">
+      <h2>Something not working?</h2>
+      <p>Message me directly. I built this app and I answer myself.</p>
+      <a class="wa" href="https://wa.me/923023404198">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M17.5 14.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5 0-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5 4.4.7.3 1.2.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.4z"/>
+          <path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/>
+        </svg>
+        WhatsApp +92 302 340 4198
+      </a>
+    </div>
+  </div>
+</section>
+
 <footer>
-  <p>
-    <strong>Zen Downloader v2.0</strong><br>
-    Made by <strong>Bilal Melwana</strong><br>
-    For Support: <a href="https://wa.me/923023404198" class="whatsapp-link">WhatsApp +92 302 340 4198</a><br><br>
-    <span style="font-size:12px; color:#484F58;">© 2026 Zen Downloader. All rights reserved.</span>
-  </p>
+  <div class="wrap foot-in">
+    <span>Zen Downloader Pro — made by <b>Bilal Melwana</b></span>
+    <span>For personal use. Please respect the rights of content owners.</span>
+  </div>
 </footer>
+
+<script>
+(function () {
+  const samples = [
+    ["https://www.youtube.com/@MrBeast/shorts",
+     "YouTube — entire account: <b>MrBeast (Shorts)</b>"],
+    ["https://www.tiktok.com/@khaby.lame",
+     "TikTok — entire account: <b>khaby.lame</b>"],
+    ["https://www.instagram.com/reel/Cx7dQm2Lp/",
+     "Instagram — <b>single video</b>"]
+  ];
+
+  const typed = document.getElementById("typed");
+  const out = document.getElementById("out");
+  const outText = document.getElementById("outText");
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (reduce) {
+    typed.textContent = samples[0][0];
+    outText.innerHTML = samples[0][1];
+    out.classList.add("show");
+    return;
+  }
+
+  let i = 0;
+
+  function typeIn(text, done) {
+    let n = 0;
+    (function step() {
+      typed.textContent = text.slice(0, ++n);
+      if (n < text.length) setTimeout(step, 26);
+      else setTimeout(done, 420);
+    })();
+  }
+
+  function eraseAll(done) {
+    (function step() {
+      const t = typed.textContent;
+      typed.textContent = t.slice(0, -1);
+      if (t.length > 1) setTimeout(step, 12);
+      else done();
+    })();
+  }
+
+  function cycle() {
+    const [link, result] = samples[i % samples.length];
+    typeIn(link, function () {
+      outText.innerHTML = result;
+      out.classList.add("show");
+      setTimeout(function () {
+        out.classList.remove("show");
+        setTimeout(function () {
+          eraseAll(function () { i++; setTimeout(cycle, 320); });
+        }, 260);
+      }, 2400);
+    });
+  }
+
+  setTimeout(cycle, 700);
+})();
+</script>
 
 </body>
 </html>
